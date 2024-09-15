@@ -13,7 +13,7 @@ import Notification from "./components/Notification.vue";
 
 <style>
 body {
-  font-family: "Press Start 2P", sans-serif;
+  font-family: "Exo 2", sans-serif;
   background-color: rgb(235, 228, 228);
 }
 </style>

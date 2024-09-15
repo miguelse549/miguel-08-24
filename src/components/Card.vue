@@ -6,7 +6,7 @@
       class="card-image aspect-square p-3 drop-shadow-personalized"
     />
     <div>
-      <h2 class="text-2xl capitalize py-2">{{ name }}</h2>
+      <h1 class="text-4xl font-semibold capitalize py-2">{{ name }}</h1>
       <slot></slot>
     </div>
   </div>

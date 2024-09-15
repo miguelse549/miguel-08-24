@@ -1,10 +1,10 @@
 <template>
-  <nav class="bg-blue-600 h-16 px-5">
+  <nav class="bg-blue-600 h-16 px-5 z-1">
     <ul class="flex items-center space-x-4 text-white tracking-widest h-full">
       <li>
         <router-link to="/">
           <img
-            src="/public/pokeball_icon.svg"
+            src="/pokeball_icon.svg"
             alt="Pokeball Icon"
             class="w-16 inline-block mr-2"
           />

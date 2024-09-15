@@ -78,11 +78,12 @@ import Card from "../components/Card.vue";
 import Stat from "../components/Stat.vue";
 import { usePlayCry } from "../composables/usePlayCry";
 const { playCry } = usePlayCry();
+import { PokemonInterface } from "../services/interfaces";
 
 const teamStore = useTeamStore();
 const router = useRouter();
 
-let team = computed(() => teamStore.team);
+let team: any = computed(() => teamStore.team);
 
 const removeFromTeam = (name: string) => {
   teamStore.removePokemon(name);
