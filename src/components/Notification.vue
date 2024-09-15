@@ -7,8 +7,11 @@
       <div
         class="bg-gray-200 p-4 rounded shadow-lg border border-gray-500 flex items-center justify-between"
       >
-        <p class="text-gray-700 text-xs">{{ description }}</p>
-        <button @click="hide" class="ml-4 p-2 bg-red-500 text-white rounded">
+        <p class="text-gray-700 text-base">{{ description }}</p>
+        <button
+          @click="hide"
+          class="ml-4 p-2 bg-red-500 text-white rounded-full"
+        >
           <svg
             width="24"
             height="24"

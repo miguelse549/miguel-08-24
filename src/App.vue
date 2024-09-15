@@ -14,6 +14,6 @@ import Notification from "./components/Notification.vue";
 <style>
 body {
   font-family: "Exo 2", sans-serif;
-  background-color: rgb(235, 228, 228);
+  background-color: rgba(235, 228, 228, 0);
 }
 </style>

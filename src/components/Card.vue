@@ -6,7 +6,11 @@
       class="card-image aspect-square p-3 drop-shadow-personalized"
     />
     <div>
-      <h1 class="text-4xl font-semibold capitalize py-2">{{ name }}</h1>
+      <h1
+        class="text-4xl font-semibold tracking-wide text-gray-700 capitalize py-2"
+      >
+        {{ name }}
+      </h1>
       <slot></slot>
     </div>
   </div>
@@ -29,12 +33,10 @@ defineProps({
 
 <style scoped>
 .card {
-  border: 1px solid #ddd;
   border-radius: 8px;
   overflow: visible;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
-  background-color: #fff;
+  background-color: #bebebe57;
   transition: box-shadow 0.3s ease;
   position: relative;
 }

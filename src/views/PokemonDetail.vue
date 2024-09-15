@@ -42,14 +42,14 @@
     </Modal>
     <Loading v-if="isLoading" />
     <div v-else>
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-2 gap-4 lg:w-full xl:w-3/4 mx-auto">
         <div
-          class="bg-slate-200 p-4 relative text-black col-span-2 md:col-span-1 rounded-lg flex flex-col justify-center items-center shadow-xl"
+          class="bg-gray-200 p-4 relative text-black col-span-2 md:col-span-1 rounded-lg"
         >
           <button
             @click="editFromPokemon(pokemon.id)"
             @click.stop
-            class="bg-gray-300 absolute top-2 right-2 rounded-full p-2 z-10 hover:bg-blue-500"
+            class="bg-gray-400 absolute top-2 right-2 rounded-full p-2 z-10 hover:bg-blue-500"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -59,35 +59,54 @@
             >
               <path
                 d="M3 21v-2.586l11.293-11.293 2.586 2.586L5.586 21H3zm17.707-14.293l-2-2a1 1 0 00-1.414 0L15 5.586l2.586 2.586 2.293-2.293a1 1 0 000-1.414z"
+                fill="white"
               />
             </svg>
           </button>
-          <h1 class="text-2xl mb-4 align-self-start">{{ pokemon?.name }}</h1>
+          <h1
+            class="text-4xl font-semibold tracking-wide text-gray-700 mb-4 align-self-start capitalize"
+          >
+            {{ pokemon?.name }}
+          </h1>
 
-          <img
-            class="drop-shadow-personalized h-80"
-            :src="pokemon?.image"
-            alt=""
-          />
-          <div class="text-sm mt-4 text-gray-400 px-5">
-            <p class="mb-2">
-              <span class="text-black">Descripción:</span>
-              {{ pokemon?.description }}
-            </p>
+          <div class="flex items-center flex-col lg:flex-row">
+            <img
+              class="drop-shadow-personalized h-80"
+              :src="pokemon?.image"
+              alt=""
+            />
+            <div class="text-sm mt-4 text-gray-500 px-5">
+              <p class="mb-2">
+                <span class="text-black text-base font-semibold"
+                  >Descripción:</span
+                >
+                {{ pokemon?.description }}
+              </p>
 
-            <p><span class="text-black">Altura:</span> {{ pokemon?.height }}</p>
-            <p><span class="text-black">Peso:</span> {{ pokemon?.weight }}</p>
-            <p>
-              <span class="text-black">Tipos:</span>
-              {{ pokemon?.types.map((t) => t.type.name).join(", ") }}
-            </p>
+              <p>
+                <span class="text-black text-base font-semibold">Altura:</span>
+                {{ pokemon?.height }}
+              </p>
+              <p>
+                <span class="text-black text-base font-semibold">Peso:</span>
+                {{ pokemon?.weight }}
+              </p>
+              <p>
+                <span class="text-black text-base font-semibold">Tipos:</span>
+                {{ pokemon?.types.map((t) => t.type.name).join(", ") }}
+              </p>
+            </div>
           </div>
         </div>
 
         <div
-          class="bg-slate-300 p-4 text-black col-span-2 md:col-span-1 rounded-lg px-9 shadow-md"
+          class="bg-gray-200 p-4 text-black col-span-2 md:col-span-1 rounded-lg px-9"
         >
-          <h2 class="text-md mt-6 mb-4 text-center">Estadísticas</h2>
+          <h2
+            class="text-md mt-6 mb-4 text-center text-xl font-semibold tracking-wide"
+          >
+            Estadísticas
+          </h2>
 
           <Stat
             v-for="stat in pokemon?.stats"
@@ -96,7 +115,9 @@
             :stateName="stat.stat.name"
           ></Stat>
 
-          <h2 class="text-md mt-2 mb-4 text-center">Sonidos</h2>
+          <h2 class="text-md mt-2 mb-4 text-center text-xl font-semibold">
+            Sonidos
+          </h2>
 
           <div
             v-for="(cryUrl, cryKey) in pokemon?.cries"
@@ -127,23 +148,26 @@
           </div>
         </div>
 
-        <div
-          class="bg-slate-200 p-4 text-black col-span-2 rounded-lg shadow-xl"
-        >
-          <h2 class="text-md mb-4">Cadena Evolutiva</h2>
+        <div class="bg-gray-200 p-4 text-black col-span-2 rounded-lg">
+          <h2 class="text-md mb-4 text-xl font-semibold text-black">
+            Cadena Evolutiva
+          </h2>
           <div class="flex items-center justify-center flex-col md:flex-row">
             <div
               v-for="(pokemon, index) in evolutionChain"
               :key="index"
               class="flex flex-col justify-center md:flex-row items-center"
             >
-              <div class="text-center flex flex-col items-center border">
+              <div class="text-center flex flex-col items-center">
                 <img
                   :src="getPokemonImage(pokemon.url)"
                   alt=""
-                  class="aspect-square h-36 p-4 drop-shadow-personalized"
+                  class="aspect-square h-36 p-4 drop-shadow-personalized border-2 border-black rounded-3xl"
                 />
-                <p>{{ pokemon.name }}</p>
+
+                <p class="text-black text- capitalize font-medium">
+                  {{ pokemon.name }}
+                </p>
               </div>
               <div
                 v-if="index < evolutionChain.length - 1"
@@ -268,7 +292,6 @@ const getPokemonImage = (url: string) => {
 };
 
 const parseEvolutionChain = (chain: any) => {
-  console.log(chain, "chain");
   const evolutionChain: any = [];
 
   for (
@@ -285,8 +308,6 @@ const parseEvolutionChain = (chain: any) => {
       break;
     }
   }
-
-  console.log(evolutionChain, "evolutionChain");
   return evolutionChain;
 };
 

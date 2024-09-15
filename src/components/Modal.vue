@@ -2,7 +2,7 @@
   <div>
     <Teleport to="body">
       <div class="modal-overlay">
-        <div class="modal">
+        <div class="modal bg-white w-72 md:min-w-[600px] p-6 rounded-lg">
           <slot></slot>
         </div>
       </div>
@@ -17,20 +17,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
-}
-
-.modal {
-  background-color: white;
-  min-width: 600px;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
-  <div class="stat-container">
-    <label class="block text-sm font-medium text-start">
+  <div class="stat-container h-screenl">
+    <label class="text-base font-semibold text-start text-black">
       {{ translateStatKey(stateName) }}
-      <span class="text-xs text-red-500">
+      <span class="text-base text-red-500">
         {{ scaleStat(baseStat) }}
       </span>
     </label>
