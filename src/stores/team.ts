@@ -4,7 +4,7 @@ import { PokemonInterface } from "../services/interfaces";
 
 export const useTeamStore = defineStore("team", {
   state: () => ({
-    team: [],
+    team: <PokemonInterface[]>[],
     selectedPokemon: ref<PokemonInterface | null>(null),
     showOverlay: ref(false),
     overlayDescription: ref(""),
@@ -33,10 +33,25 @@ export const useTeamStore = defineStore("team", {
     },
     removePokemon(name) {
       this.team = this.team.filter((p) => p.name !== name);
+      this.showOverlay = true;
+      this.overlayDescription = `${name} ha sido eliminado del equipo`;
     },
 
     getPokemonDetail(id) {
       this.selectedPokemon = this.team.find((p) => p.id === id) || null;
+    },
+
+    updatePokemon(updatedPokemon: PokemonInterface) {
+      const index = this.team.findIndex((p) => p.id === updatedPokemon.id);
+
+      if (index !== -1) {
+        this.team[index] = { ...this.team[index], ...updatedPokemon };
+        this.showOverlay = true;
+        this.overlayDescription = `Pokémon actualizado: ${updatedPokemon.name}`;
+      } else {
+        this.showOverlay = true;
+        this.overlayDescription = `Pokémon no encontrado en el equipo.`;
+      }
     },
   },
 });

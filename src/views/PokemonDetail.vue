@@ -1,46 +1,123 @@
 <template>
   <div class="container mx-auto p-4">
+    <Modal v-if="showModal">
+      <form @submit.prevent="updatePokemon">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" v-model="pokemonEdit.name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="height">Altura</label>
+          <input
+            type="number"
+            id="height"
+            v-model="pokemonEdit.height"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="weight">Peso</label>
+          <input
+            type="number"
+            id="weight"
+            v-model="pokemonEdit.weight"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="type">Descripción</label>
+          <textarea v-model="pokemonEdit.description" required />
+        </div>
+
+        <div class="flex gap-3">
+          <button type="submit" class="btn-save">Guardar</button>
+          <button @click.prevent="cancelEdit" class="btn-cancel">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </Modal>
     <Loading v-if="isLoading" />
     <div v-else>
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-2 gap-4 lg:w-full xl:w-3/4 mx-auto">
         <div
-          class="bg-slate-200 p-4 text-black col-span-2 md:col-span-1 rounded-lg flex flex-col justify-center items-center shadow-xl"
+          class="bg-white p-4 relative text-black col-span-2 md:col-span-1 rounded-lg shadow-personalized"
         >
-          <h1 class="text-2xl mb-4 align-self-start">{{ pokemon?.name }}</h1>
+          <button
+            @click="editFromPokemon(pokemon.id)"
+            @click.stop
+            class="bg-gray-400 absolute top-2 right-2 rounded-full p-2 z-10 hover:bg-blue-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+            >
+              <path
+                d="M3 21v-2.586l11.293-11.293 2.586 2.586L5.586 21H3zm17.707-14.293l-2-2a1 1 0 00-1.414 0L15 5.586l2.586 2.586 2.293-2.293a1 1 0 000-1.414z"
+                fill="white"
+              />
+            </svg>
+          </button>
+          <h1
+            class="text-4xl font-semibold tracking-wide text-gray-700 mb-4 align-self-start capitalize"
+          >
+            {{ pokemon?.name }}
+          </h1>
 
-          <img
-            class="drop-shadow-personalized h-80"
-            :src="pokemon?.image"
-            alt=""
-          />
-          <div class="text-sm mt-4 text-gray-400 px-5">
-            <p class="mb-2">
-              <span class="text-black">Descripción:</span>
-              {{ pokemon?.description }}
-            </p>
+          <div class="flex items-center justify-center flex-col lg:flex-row">
+            <img
+              class="drop-shadow-personalized h-64 aspect-square"
+              :src="pokemon?.image"
+              alt=""
+            />
+            <div
+              class="text-sm mt-4 text-gray-500 px-5 w-full overflow-hidden break-words"
+            >
+              <p class="mb-2">
+                <span class="text-gray-700 text-base font-semibold"
+                  >Descripción:</span
+                >
+                {{ pokemon?.description }}
+              </p>
 
-            <p><span class="text-black">Altura:</span> {{ pokemon?.height }}</p>
-            <p><span class="text-black">Peso:</span> {{ pokemon?.weight }}</p>
-            <p>
-              <span class="text-black">Tipos:</span>
-              {{ pokemon?.types.map((t) => t.type.name).join(", ") }}
-            </p>
+              <p>
+                <span class="text-gray-700 text-base font-semibold"
+                  >Altura:</span
+                >
+                {{ pokemon?.height }}
+              </p>
+              <p>
+                <span class="text-gray-700 text-base font-semibold">Peso:</span>
+                {{ pokemon?.weight }}
+              </p>
+              <p>
+                <span class="text-gray-700 text-base font-semibold"
+                  >Tipos:</span
+                >
+                {{ pokemon?.types.map((t) => t.type.name).join(", ") }}
+              </p>
+            </div>
           </div>
         </div>
 
         <div
-          class="bg-slate-300 p-4 text-black col-span-2 md:col-span-1 rounded-lg px-9 shadow-md"
+          class="bg-white p-4 text-gray-700 col-span-2 md:col-span-1 rounded-lg px-9 shadow-personalized"
         >
-          <h2 class="text-md mt-6 mb-4 text-center">Estadísticas</h2>
+          <h2
+            class="text-md mt-6 mb-4 text-center text-xl font-semibold tracking-wide"
+          >
+            Estadísticas
+          </h2>
+          <Stat :stats="pokemon?.stats"></Stat>
 
-          <Stat
-            v-for="stat in pokemon?.stats"
-            :key="stat.stat.name"
-            :baseStat="stat.base_stat"
-            :stateName="stat.stat.name"
-          ></Stat>
-
-          <h2 class="text-md mt-2 mb-4 text-center">Sonidos</h2>
+          <h2 class="text-md mt-2 mb-4 text-center text-xl font-semibold">
+            Sonidos
+          </h2>
 
           <div
             v-for="(cryUrl, cryKey) in pokemon?.cries"
@@ -72,22 +149,27 @@
         </div>
 
         <div
-          class="bg-slate-200 p-4 text-black col-span-2 rounded-lg shadow-xl"
+          class="bg-white p-4 text-gray-700 col-span-2 rounded-lg shadow-personalized"
         >
-          <h2 class="text-md mb-4">Cadena Evolutiva</h2>
+          <h2 class="text-md mb-4 text-xl font-semibold ttext-gray-700">
+            Cadena Evolutiva
+          </h2>
           <div class="flex items-center justify-center flex-col md:flex-row">
             <div
               v-for="(pokemon, index) in evolutionChain"
               :key="index"
               class="flex flex-col justify-center md:flex-row items-center"
             >
-              <div class="text-center flex flex-col items-center border">
+              <div class="text-center flex flex-col items-center">
                 <img
                   :src="getPokemonImage(pokemon.url)"
                   alt=""
-                  class="aspect-square h-36 p-4 drop-shadow-personalized"
+                  class="aspect-square h-36 p-4 drop-shadow-personalized border-2 border-black rounded-3xl"
                 />
-                <p>{{ pokemon.name }}</p>
+
+                <p class="text-gray-700 capitalize font-medium">
+                  {{ pokemon.name }}
+                </p>
               </div>
               <div
                 v-if="index < evolutionChain.length - 1"
@@ -120,21 +202,28 @@ import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Loading from "../components/Loading.vue";
 import Stat from "../components/Stat.vue";
+import Modal from "../components/Modal.vue";
 import { useTeamStore } from "../stores/team";
 import api from "../services/api";
-import { useTranslations } from "../composables/useTranslations";
 import { usePlayCry } from "../composables/usePlayCry";
 import { PokemonInterface } from "../services/interfaces";
-
-const { translateCryKey } = useTranslations();
 const { playCry } = usePlayCry();
 
 const route = useRoute();
 const router = useRouter();
 const teamStore = useTeamStore();
-const pokemon = ref<PokemonInterface | null>(null);
-const evolutionChain = ref(null);
+const pokemon = ref();
+const evolutionChain = ref();
 const isLoading = ref(false);
+const showModal = ref(false);
+
+const pokemonEdit = ref<PokemonInterface>({
+  id: 0,
+  name: "",
+  height: 0,
+  weight: 0,
+  description: "",
+});
 
 onMounted(async () => {
   if (
@@ -165,10 +254,10 @@ onMounted(async () => {
 
     const chainResponse = await api.getEvolutionChain(idChain);
     evolutionChain.value = parseEvolutionChain(chainResponse.data.chain);
-    console.log(evolutionChain.value, "evolutionChain.value");
 
     teamStore.getPokemonDetail(id);
     pokemon.value = teamStore.selectedPokemon;
+
     if (pokemon.value) {
       pokemon.value.description = description;
     }
@@ -185,7 +274,6 @@ const getPokemonImage = (url: string) => {
 };
 
 const parseEvolutionChain = (chain: any) => {
-  console.log(chain, "chain");
   const evolutionChain: any = [];
 
   for (
@@ -202,8 +290,90 @@ const parseEvolutionChain = (chain: any) => {
       break;
     }
   }
-
-  console.log(evolutionChain, "evolutionChain");
   return evolutionChain;
 };
+
+const editFromPokemon = (id: string) => {
+  const pokemonId = id;
+  teamStore.getPokemonDetail(pokemonId);
+  if (teamStore.selectedPokemon) {
+    pokemonEdit.value = { ...teamStore.selectedPokemon }; // Copiar los datos
+  }
+  showModal.value = true;
+};
+
+const updatePokemon = () => {
+  teamStore.updatePokemon(pokemonEdit.value); // Actualizar en el store
+  showModal.value = false; // Navegar de vuelta al equipo
+  teamStore.getPokemonDetail(pokemonEdit.value.id);
+  pokemon.value = teamStore.selectedPokemon;
+};
+
+// Método para cancelar la edición
+const cancelEdit = () => {
+  showModal.value = false;
+};
 </script>
+
+<style scoped>
+.edit-pokemon {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea {
+  resize: none;
+  min-height: 150px;
+}
+
+.btn-save,
+.btn-cancel {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.btn-save {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-save:hover,
+.btn-cancel:hover {
+  opacity: 0.8;
+}
+</style>

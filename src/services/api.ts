@@ -19,7 +19,6 @@ apiClient.interceptors.request.use(
   },
   (error) => {
     isLoading.value = false;
-    console.log(error);
     return Promise.reject(error);
   }
 );

@@ -7,6 +7,7 @@
         :key="pokemon.name"
         :name="pokemon.name"
         :image="pokemon.image"
+        :isAnimated="true"
         @click="selectPokemon(pokemon)"
       />
     </main>
@@ -56,13 +57,10 @@ const loadMore = async () => {
         image: details.data.sprites.other.dream_world.front_default,
       };
 
-      console.log(pokemonWithImage);
       newPokemons.push(pokemonWithImage);
     }
 
     pokemons.value = pokemons.value.concat(newPokemons);
-
-    console.log(pokemons.value);
 
     offset += adjustedLimit;
   } catch (error) {

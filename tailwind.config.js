@@ -6,6 +6,9 @@ export default {
       dropShadow: {
         personalized: "0 0 10px rgba(0, 0, 0, 0.8)",
       },
+      boxShadow: {
+        personalized: "0 6px 12px rgba(0, 0, 0, 0.3)",
+      },
     },
   },
   plugins: [],

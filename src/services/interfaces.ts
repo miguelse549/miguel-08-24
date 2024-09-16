@@ -1,13 +1,13 @@
 export interface PokemonInterface {
   id: number;
   name: string;
-  image: string;
+  image?: string;
   description?: string;
-  height: string;
-  weight: string;
-  types: TypeInterface[];
-  stats: StatInterface[];
-  cries: { [key: string]: string };
+  height: number;
+  weight: number;
+  types?: TypeInterface[];
+  stats?: StatInterface[];
+  cries?: { [key: string]: string };
 }
 
 export interface TypeInterface {
