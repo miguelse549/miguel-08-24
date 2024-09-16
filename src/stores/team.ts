@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { PokemonInterface } from "../services/interfaces";
+import { useCapitalizeFirstLetter } from "../composables/useCapitalizeLetter";
+const { words } = useCapitalizeFirstLetter();
 
 export const useTeamStore = defineStore("team", {
   state: () => ({
@@ -21,12 +23,16 @@ export const useTeamStore = defineStore("team", {
 
       if (exists) {
         this.showOverlay = true;
-        this.overlayDescription = `El equipo ya tiene este pokemon: ${pokemon.name}`;
+        this.overlayDescription = `${words(
+          pokemon.name
+        )} ya existe en el equipo`;
         return;
       }
       if (!exists && this.team.length < 6) {
         this.showOverlay = true;
-        this.overlayDescription = `Pokemon agregado: ${pokemon.name}`;
+        this.overlayDescription = `${words(
+          pokemon.name
+        )} fue agregado al equipo`;
         this.team.push(pokemon);
         return;
       }
