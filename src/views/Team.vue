@@ -3,38 +3,40 @@
     <div v-if="team.length === 0">Tu equipo esta vacío</div>
     <main v-else>
       <Card
+        class="card"
         v-for="pokemon in team"
         :key="pokemon.name"
         :name="pokemon.name"
         :image="pokemon.image"
         @click="goToPokemonDetail(pokemon.id)"
       >
-        <!-- <div class="w-full bg-gray-500 rounded-md">
-          <ul class="flex flex-row px-1">
-            <li v-for="stat in pokemon.stats" :key="stat.stat.name">
-              <ul class="w-10 p-0.5 mt-1 mx-auto">
-                <li
-                  v-for="index in 15"
-                  :key="index"
-                  :class="{
-                    'border-gray-200 bg-white h-2 mt-1':
-                      index <= Math.floor(stat.base_stat / (100 / 15)),
-                    'border-gray-200 bg-blue-400 h-2 mt-1':
-                      index > Math.floor(stat.base_stat / (100 / 15)),
-                  }"
-                ></li>
-              </ul>
-              <span class="text-white">{{ stat.stat.name }}</span>
-            </li>
-          </ul>
-        </div> -->
-
         <Stat :stats="pokemon.stats"></Stat>
+
+        <button
+          @click="goToPokemonDetail(pokemon.id)"
+          @click.stop
+          class="bg-gray-400 hover:bg-blue-500 text-white rounded-full absolute top-2 right-14 p-2 z-10"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+        </button>
 
         <button
           @click="removeFromTeam(pokemon.name)"
           @click.stop
-          class="bg-gray-400 hover:bg-red-500 text-white rounded-full absolute top-1 right-1 p-1 z-10"
+          class="bg-gray-400 hover:bg-red-600 text-white rounded-full absolute top-2 right-2 p-2 z-10"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

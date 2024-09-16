@@ -1,6 +1,6 @@
 <template>
-  <nav class="bg-blue-600 h-16 px-5 z-1">
-    <ul class="flex items-center space-x-4 text-white tracking-widest h-full">
+  <nav class="bg-blue-600 h-16 px-5 z-1 shadow-personalized">
+    <ul class="flex items-center text-white tracking-widest h-full">
       <li>
         <router-link to="/">
           <img
@@ -13,8 +13,10 @@
       <li>
         <router-link
           to="/"
-          class="px-3 py-2 rounded-md transition-colors duration-300 hover:bg-blue-800"
-          :class="{ 'bg-red-500 font-bold h-fi': $route.path === '/' }"
+          class="py-2 transition-colors duration-1000 hover:border-b-4 hover:border-red-600 px-6 text-nowrap"
+          :class="{
+            'border-b-4  font-bold': $route.path === '/',
+          }"
         >
           Pokemons
         </router-link>
@@ -23,8 +25,8 @@
       <li>
         <router-link
           to="/team"
-          class="px-3 py-2 rounded-md transition-colors duration-300 hover:bg-blue-800"
-          :class="{ 'bg-red-500 font-bold': $route.path === '/team' }"
+          class="py-2 transition-colors duration-1000 hover:border-b-4 hover:border-red-600 px-6 text-nowrap"
+          :class="{ 'border-b-4  font-bold': $route.path === '/team' }"
         >
           Tu Equipo
         </router-link>

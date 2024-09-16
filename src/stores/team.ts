@@ -33,6 +33,8 @@ export const useTeamStore = defineStore("team", {
     },
     removePokemon(name) {
       this.team = this.team.filter((p) => p.name !== name);
+      this.showOverlay = true;
+      this.overlayDescription = `${name} ha sido eliminado del equipo`;
     },
 
     getPokemonDetail(id) {
@@ -43,12 +45,10 @@ export const useTeamStore = defineStore("team", {
       const index = this.team.findIndex((p) => p.id === updatedPokemon.id);
 
       if (index !== -1) {
-        // Si el Pokémon existe en el equipo, actualizamos sus datos
         this.team[index] = { ...this.team[index], ...updatedPokemon };
         this.showOverlay = true;
         this.overlayDescription = `Pokémon actualizado: ${updatedPokemon.name}`;
       } else {
-        // Si no se encuentra el Pokémon, mostramos un mensaje
         this.showOverlay = true;
         this.overlayDescription = `Pokémon no encontrado en el equipo.`;
       }

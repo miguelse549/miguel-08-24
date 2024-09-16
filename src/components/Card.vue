@@ -1,9 +1,13 @@
 <template>
-  <div class="card p-5 cursor-pointer">
+  <div
+    class="card p-5 cursor-pointer"
+    :class="{ 'hover:shadow-personalized': isAnimated }"
+  >
     <img
       :src="image"
       :alt="name"
       class="card-image aspect-square p-3 drop-shadow-personalized"
+      :class="{ 'hover:z-10 hover:scale-110': isAnimated }"
     />
     <div>
       <h1
@@ -28,6 +32,10 @@ defineProps({
     required: true,
     default: "",
   },
+  isAnimated: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
@@ -36,13 +44,9 @@ defineProps({
   border-radius: 8px;
   overflow: visible;
   text-align: center;
-  background-color: #bebebe57;
+  background-color: white;
   transition: box-shadow 0.3s ease;
   position: relative;
-}
-
-.card:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .card-image {
@@ -51,10 +55,5 @@ defineProps({
   transition: transform 0.3s ease;
   position: relative;
   z-index: 1;
-}
-
-.card-image:hover {
-  transform: scale(1.1);
-  z-index: 2;
 }
 </style>

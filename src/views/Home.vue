@@ -7,6 +7,7 @@
         :key="pokemon.name"
         :name="pokemon.name"
         :image="pokemon.image"
+        :isAnimated="true"
         @click="selectPokemon(pokemon)"
       />
     </main>

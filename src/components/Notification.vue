@@ -5,7 +5,7 @@
       class="fixed left-1/2 bottom-4 transform -translate-x-1/2 w-96 z-50 px-8 md:px-0"
     >
       <div
-        class="bg-gray-200 p-4 rounded shadow-lg border border-gray-500 flex items-center justify-between"
+        class="bg-gray-200 p-4 rounded shadow-personalized border border-gray-200 flex items-center justify-between"
       >
         <p class="text-gray-700 text-base">{{ description }}</p>
         <button

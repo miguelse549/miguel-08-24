@@ -44,7 +44,7 @@
     <div v-else>
       <div class="grid grid-cols-2 gap-4 lg:w-full xl:w-3/4 mx-auto">
         <div
-          class="bg-gray-200 p-4 relative text-black col-span-2 md:col-span-1 rounded-lg"
+          class="bg-white p-4 relative text-black col-span-2 md:col-span-1 rounded-lg shadow-personalized"
         >
           <button
             @click="editFromPokemon(pokemon.id)"
@@ -79,22 +79,26 @@
               class="text-sm mt-4 text-gray-500 px-5 w-full overflow-hidden break-words"
             >
               <p class="mb-2">
-                <span class="text-black text-base font-semibold"
+                <span class="text-gray-700 text-base font-semibold"
                   >Descripción:</span
                 >
                 {{ pokemon?.description }}
               </p>
 
               <p>
-                <span class="text-black text-base font-semibold">Altura:</span>
+                <span class="text-gray-700 text-base font-semibold"
+                  >Altura:</span
+                >
                 {{ pokemon?.height }}
               </p>
               <p>
-                <span class="text-black text-base font-semibold">Peso:</span>
+                <span class="text-gray-700 text-base font-semibold">Peso:</span>
                 {{ pokemon?.weight }}
               </p>
               <p>
-                <span class="text-black text-base font-semibold">Tipos:</span>
+                <span class="text-gray-700 text-base font-semibold"
+                  >Tipos:</span
+                >
                 {{ pokemon?.types.map((t) => t.type.name).join(", ") }}
               </p>
             </div>
@@ -102,7 +106,7 @@
         </div>
 
         <div
-          class="bg-gray-200 p-4 text-black col-span-2 md:col-span-1 rounded-lg px-9"
+          class="bg-white p-4 text-gray-700 col-span-2 md:col-span-1 rounded-lg px-9 shadow-personalized"
         >
           <h2
             class="text-md mt-6 mb-4 text-center text-xl font-semibold tracking-wide"
@@ -144,8 +148,10 @@
           </div>
         </div>
 
-        <div class="bg-gray-200 p-4 text-black col-span-2 rounded-lg">
-          <h2 class="text-md mb-4 text-xl font-semibold text-black">
+        <div
+          class="bg-white p-4 text-gray-700 col-span-2 rounded-lg shadow-personalized"
+        >
+          <h2 class="text-md mb-4 text-xl font-semibold ttext-gray-700">
             Cadena Evolutiva
           </h2>
           <div class="flex items-center justify-center flex-col md:flex-row">
@@ -161,7 +167,7 @@
                   class="aspect-square h-36 p-4 drop-shadow-personalized border-2 border-black rounded-3xl"
                 />
 
-                <p class="text-black text- capitalize font-medium">
+                <p class="text-gray-700 capitalize font-medium">
                   {{ pokemon.name }}
                 </p>
               </div>
