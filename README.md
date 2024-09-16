@@ -6,7 +6,7 @@ Esta prueba fue desarrollada para demostrar el manejo de Vue 3, Vue Router, Pini
 
 - [Repositorio](https://github.com/miguelse549/miguel-08-24)
 
-- [Despliegue Proyecto](https://66e835abef4f4a4661f870ac--unrivaled-fudge-b42530.netlify.app/)
+- [Despliegue Proyecto](https://66e8495562ed9218faebb377--unrivaled-fudge-b42530.netlify.app/)
 
 ## Instalación
 
