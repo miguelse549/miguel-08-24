@@ -69,13 +69,15 @@
             {{ pokemon?.name }}
           </h1>
 
-          <div class="flex items-center flex-col lg:flex-row">
+          <div class="flex items-center justify-center flex-col lg:flex-row">
             <img
-              class="drop-shadow-personalized h-80"
+              class="drop-shadow-personalized h-64 aspect-square"
               :src="pokemon?.image"
               alt=""
             />
-            <div class="text-sm mt-4 text-gray-500 px-5">
+            <div
+              class="text-sm mt-4 text-gray-500 px-5 w-full overflow-hidden break-words"
+            >
               <p class="mb-2">
                 <span class="text-black text-base font-semibold"
                   >Descripción:</span
@@ -107,13 +109,7 @@
           >
             Estadísticas
           </h2>
-
-          <Stat
-            v-for="stat in pokemon?.stats"
-            :key="stat.stat.name"
-            :baseStat="stat.base_stat"
-            :stateName="stat.stat.name"
-          ></Stat>
+          <Stat :stats="pokemon?.stats"></Stat>
 
           <h2 class="text-md mt-2 mb-4 text-center text-xl font-semibold">
             Sonidos
@@ -213,6 +209,8 @@ const teamStore = useTeamStore();
 const pokemon = ref();
 const evolutionChain = ref();
 const isLoading = ref(false);
+const showModal = ref(false);
+
 const pokemonEdit = ref<PokemonInterface>({
   id: 0,
   name: "",
@@ -220,28 +218,6 @@ const pokemonEdit = ref<PokemonInterface>({
   weight: 0,
   description: "",
 });
-
-const types = [
-  "normal",
-  "fire",
-  "water",
-  "grass",
-  "electric",
-  "ice",
-  "fighting",
-  "poison",
-  "ground",
-  "flying",
-  "psychic",
-  "bug",
-  "rock",
-  "ghost",
-  "dragon",
-  "dark",
-  "steel",
-  "fairy",
-];
-const showModal = ref(false);
 
 onMounted(async () => {
   if (

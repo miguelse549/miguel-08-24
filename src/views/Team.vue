@@ -9,60 +9,49 @@
         :image="pokemon.image"
         @click="goToPokemonDetail(pokemon.id)"
       >
-        <Stat
-          v-for="stat in pokemon.stats"
-          :key="stat.stat.name"
-          :baseStat="stat.base_stat"
-          :stateName="stat.stat.name"
-        ></Stat>
+        <!-- <div class="w-full bg-gray-500 rounded-md">
+          <ul class="flex flex-row px-1">
+            <li v-for="stat in pokemon.stats" :key="stat.stat.name">
+              <ul class="w-10 p-0.5 mt-1 mx-auto">
+                <li
+                  v-for="index in 15"
+                  :key="index"
+                  :class="{
+                    'border-gray-200 bg-white h-2 mt-1':
+                      index <= Math.floor(stat.base_stat / (100 / 15)),
+                    'border-gray-200 bg-blue-400 h-2 mt-1':
+                      index > Math.floor(stat.base_stat / (100 / 15)),
+                  }"
+                ></li>
+              </ul>
+              <span class="text-white">{{ stat.stat.name }}</span>
+            </li>
+          </ul>
+        </div> -->
 
-        <div
-          v-for="(cryUrl, cryKey) in pokemon.cries"
-          :key="cryKey"
-          class="mt-4 inline-flex"
-        >
-          <button
-            @click="playCry(cryUrl)"
-            @click.stop
-            class="bg-gray-400 text-white rounded-full mb-2 mx-2 p-2 hover:bg-blue-500"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              width="24"
-              height="24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M11 5L6 9H2v6h4l5 4V5zM15 9v6m2-4a4 4 0 010 4m0-8a8 8 0 010 8"
-              />
-            </svg>
-            <!-- {{ translateCryKey(cryKey) }} -->
-          </button>
-        </div>
+        <Stat :stats="pokemon.stats"></Stat>
+
         <button
           @click="removeFromTeam(pokemon.name)"
           @click.stop
-          class="bg-red-500 text-white absolute top-1 right-1 rounded-md p-1 z-10"
+          class="bg-gray-400 hover:bg-red-500 text-white rounded-full absolute top-1 right-1 p-1 z-10"
         >
           <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
             width="24"
             height="24"
-            xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            viewBox="0 0 24 24"
             stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12"
-            />
+            <path d="M3 6h18" stroke-width="2"></path>
+            <path d="M19 6l-1 14H6L5 6" stroke-width="1.5"></path>
+            <path d="M10 11v6" stroke-width="1.5"></path>
+            <path d="M14 11v6" stroke-width="1.5"></path>
+            <path d="M9 6V4h6v2" stroke-width="1.5"></path>
           </svg>
         </button>
       </Card>
@@ -76,9 +65,6 @@ import { computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import Card from "../components/Card.vue";
 import Stat from "../components/Stat.vue";
-import { usePlayCry } from "../composables/usePlayCry";
-const { playCry } = usePlayCry();
-import { PokemonInterface } from "../services/interfaces";
 
 const teamStore = useTeamStore();
 const router = useRouter();
